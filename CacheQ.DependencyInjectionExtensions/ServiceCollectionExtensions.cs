@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CacheQ;
+using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -46,14 +47,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
 			services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
 			services.AddSingleton<ICacheManager, CacheManager>();
-
-			services.AddSingleton(new CacheExpirationSettings()
+			services.AddSingleton(serviceProvider =>
 			{
-				VeryShort = TimeSpan.FromSeconds(10),
-				Short = TimeSpan.FromSeconds(10),
-				Medium = TimeSpan.FromSeconds(10),
-				Long = TimeSpan.FromSeconds(10),
-				VeryLong = TimeSpan.FromSeconds(10),
+				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+				var cacheExpirationSettings = new CacheExpirationSettings();
+				configuration.GetSection("CacheQ").Bind(cacheExpirationSettings);
+
+				return cacheExpirationSettings;
 			});
 
 			return services;

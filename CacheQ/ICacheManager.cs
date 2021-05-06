@@ -6,6 +6,7 @@
                ICachePolicy<TRequest> cachePolicy,
                TRequest request,
                out TResult result);
+
         void SetItem<TRequest, TResult>(
              ICachePolicy<TRequest> cachePolicy,
              TRequest request,
