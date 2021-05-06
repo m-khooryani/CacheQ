@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ", "CacheQ\CacheQ.csproj", "{F56552B4-3337-4220-971A-9C1F474C65C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheQ", "CacheQ\CacheQ.csproj", "{F56552B4-3337-4220-971A-9C1F474C65C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{EB1E1F18-A50E-45E8-A986-1650FE4A6EE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample1", "Sample1", "{659B5663-B20E-4D59-BD15-68CF602510C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ.Sample1.API", "Samples\Sample1\CacheQ.Sample1.API\CacheQ.Sample1.API.csproj", "{10E48256-4700-4860-B465-C77DD35AADF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ.Sample1.Application", "Samples\Sample1\CacheQ.Sample1.Application\CacheQ.Sample1.Application.csproj", "{A8E60BBA-2C87-45A5-B203-2C756D97A41B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ.DependencyInjectionExtensions", "CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj", "{71CBCF96-183D-4493-A55E-94B725DF4FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,26 @@ Global
 		{F56552B4-3337-4220-971A-9C1F474C65C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F56552B4-3337-4220-971A-9C1F474C65C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F56552B4-3337-4220-971A-9C1F474C65C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E48256-4700-4860-B465-C77DD35AADF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E48256-4700-4860-B465-C77DD35AADF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E48256-4700-4860-B465-C77DD35AADF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E48256-4700-4860-B465-C77DD35AADF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8E60BBA-2C87-45A5-B203-2C756D97A41B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E60BBA-2C87-45A5-B203-2C756D97A41B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8E60BBA-2C87-45A5-B203-2C756D97A41B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E60BBA-2C87-45A5-B203-2C756D97A41B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CBCF96-183D-4493-A55E-94B725DF4FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CBCF96-183D-4493-A55E-94B725DF4FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CBCF96-183D-4493-A55E-94B725DF4FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CBCF96-183D-4493-A55E-94B725DF4FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{659B5663-B20E-4D59-BD15-68CF602510C7} = {EB1E1F18-A50E-45E8-A986-1650FE4A6EE2}
+		{10E48256-4700-4860-B465-C77DD35AADF9} = {659B5663-B20E-4D59-BD15-68CF602510C7}
+		{A8E60BBA-2C87-45A5-B203-2C756D97A41B} = {659B5663-B20E-4D59-BD15-68CF602510C7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D7C63D5-C8F7-498E-B5BF-278DD25111AE}

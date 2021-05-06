@@ -5,27 +5,32 @@ namespace CacheQ
 {
     public class CacheManager<TRequest, TResult>
     {
-        private static readonly ConcurrentDictionary<string, Tuple<DateTime, TResult>> _dictionary;
+        private static readonly ConcurrentDictionary<string, CacheValueModel<TResult>> _dictionary;
 
         static CacheManager()
         {
-            _dictionary = new ConcurrentDictionary<string, Tuple<DateTime, TResult>>();
+            _dictionary = new ConcurrentDictionary<string, CacheValueModel<TResult>>();
         }
 
-        public static TResult GetItem(ICachePolicy<TRequest> cachePolicy, TRequest request)
+        public static bool TryGetValue(
+            ICachePolicy<TRequest> cachePolicy,
+            TRequest request,
+            out TResult result)
         {
             if (!_dictionary.ContainsKey(cachePolicy.Key(request)))
             {
-                return default;
+                result = default;
+                return false;
             }
             var t = _dictionary[cachePolicy.Key(request)];
 
-            if ((DateTime.UtcNow - t.Item1) > cachePolicy.Duration())
+            if ((DateTime.UtcNow - t.DateTime) > cachePolicy.Duration())
             {
-                return default;
+                result = default;
+                return false;
             }
-
-            return t.Item2;
+            result = t.Item;
+            return true;
         }
 
         public static void SetItem(
@@ -34,8 +39,8 @@ namespace CacheQ
             TResult result)
         {
             _dictionary.AddOrUpdate(
-                cachePolicy.Key(request), 
-                new Tuple<DateTime, TResult>(DateTime.UtcNow, result));
+                cachePolicy.Key(request),
+                new CacheValueModel<TResult>(result));
         }
     }
 }
