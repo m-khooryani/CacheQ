@@ -6,22 +6,27 @@ using MediatR;
 
 namespace CacheQ.Sample1.API.MediatorPipelines
 {
-    internal class QueryCachingBehavior<T, TResult> : IPipelineBehavior<T, TResult> where T : IRequest<TResult>
+    internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
+        where TRequest : IRequest<TResult>
     {
-        private readonly ICachePolicy<T> _cachePolicy;
+        private readonly ICachePolicy<TRequest> _cachePolicy;
+        private readonly ICacheManager _cacheManager;
 
-        public QueryCachingBehavior(IEnumerable<ICachePolicy<T>> cachePolicy)
+        public QueryCachingBehavior(
+            IEnumerable<ICachePolicy<TRequest>> cachePolicy,
+            ICacheManager cacheManager)
         {
             _cachePolicy = cachePolicy.SingleOrDefault();
+            _cacheManager = cacheManager;
         }
 
-        public async Task<TResult> Handle(T request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
+        public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
         {
             if (_cachePolicy == null)
             {
                 return await next();
             }
-            if (CacheManager<T, TResult>.TryGetValue(
+            if (_cacheManager.TryGetValue(
                 _cachePolicy, 
                 request,
                 out TResult cachedResult))
@@ -29,7 +34,7 @@ namespace CacheQ.Sample1.API.MediatorPipelines
                 return await Task.FromResult(cachedResult);
             }
             TResult result = await next();
-            CacheManager<T, TResult>.SetItem(_cachePolicy, request, result);
+            _cacheManager.SetItem(_cachePolicy, request, result);
 
             return result;
         }

@@ -3,16 +3,18 @@ using System.Collections.Concurrent;
 
 namespace CacheQ
 {
-    public class CacheManager<TRequest, TResult>
+    internal class CacheManager : ICacheManager
     {
-        private static readonly ConcurrentDictionary<string, CacheValueModel<TResult>> _dictionary;
+        private readonly ConcurrentDictionary<string, CacheValueModel> _dictionary;
+        private readonly ICacheExpirationResolver _cacheExpirationResolver;
 
-        static CacheManager()
+        public CacheManager(ICacheExpirationResolver cacheExpirationResolver)
         {
-            _dictionary = new ConcurrentDictionary<string, CacheValueModel<TResult>>();
+            _cacheExpirationResolver = cacheExpirationResolver;
+            _dictionary = new ConcurrentDictionary<string, CacheValueModel>();
         }
 
-        public static bool TryGetValue(
+        public bool TryGetValue<TRequest, TResult>(
             ICachePolicy<TRequest> cachePolicy,
             TRequest request,
             out TResult result)
@@ -24,23 +26,24 @@ namespace CacheQ
             }
             var t = _dictionary[cachePolicy.Key(request)];
 
-            if ((DateTime.UtcNow - t.DateTime) > cachePolicy.Duration())
+            if ((DateTime.UtcNow - t.DateTime) > 
+                _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
             {
                 result = default;
                 return false;
             }
-            result = t.Item;
+            result = (TResult)t.Item;
             return true;
         }
 
-        public static void SetItem(
+        public void SetItem<TRequest, TResult>(
             ICachePolicy<TRequest> cachePolicy,
             TRequest request,
             TResult result)
         {
             _dictionary.AddOrUpdate(
                 cachePolicy.Key(request),
-                new CacheValueModel<TResult>(result));
+                new CacheValueModel(result));
         }
     }
 }

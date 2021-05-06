@@ -44,6 +44,18 @@ namespace Microsoft.Extensions.DependencyInjection
                 .ToList()
                 .ForEach(scanResult => services.AddScanResult(scanResult, lifetime));
 
+			services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
+			services.AddSingleton<ICacheManager, CacheManager>();
+
+			services.AddSingleton(new CacheExpirationSettings()
+			{
+				VeryShort = TimeSpan.FromSeconds(10),
+				Short = TimeSpan.FromSeconds(10),
+				Medium = TimeSpan.FromSeconds(10),
+				Long = TimeSpan.FromSeconds(10),
+				VeryLong = TimeSpan.FromSeconds(10),
+			});
+
 			return services;
 		}
 

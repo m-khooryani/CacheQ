@@ -30,9 +30,9 @@ namespace CacheQ.Sample1.API
             });
             services.AddControllers(); 
             services.AddMediatR(typeof(PrimeNumbersCountQuery).Assembly);
+            services.AddCachePoliciesFromAssembly(typeof(PrimeNumbersCountQuery).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryLoggingBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>));
-            services.AddCachePoliciesFromAssembly(typeof(PrimeNumbersCountQuery).Assembly);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CacheQ.Sample1.API", Version = "v1" });

@@ -1,13 +1,8 @@
-﻿using System;
-
-namespace CacheQ.Sample1.Application.PrimeNumbersCount
+﻿namespace CacheQ.Sample1.Application.PrimeNumbersCount
 {
     class PrimeNumbersCountQueryCachePolicy : ICachePolicy<PrimeNumbersCountQuery>
     {
-        public TimeSpan Duration()
-        {
-            return TimeSpan.FromSeconds(10);
-        }
+        public CacheLevel ExpirationLevel => CacheLevel.Normal;
 
         public string Key(PrimeNumbersCountQuery query)
         {

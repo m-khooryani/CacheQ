@@ -2,12 +2,12 @@
 
 namespace CacheQ
 {
-    internal class CacheValueModel<T>
+    internal class CacheValueModel
     {
         public DateTime DateTime { get; }
-        public T Item { get; }
+        public object Item { get; }
 
-        public CacheValueModel(T item)
+        public CacheValueModel(object item)
         {
             Item = item;
             DateTime = DateTime.UtcNow;
