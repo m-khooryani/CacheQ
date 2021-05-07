@@ -47,6 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 			services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
 			services.AddSingleton<ICacheManager, CacheManager>();
+			services.AddInMemoryPersistence();
 			services.AddSingleton(serviceProvider =>
 			{
 				var configuration = serviceProvider.GetRequiredService<IConfiguration>();

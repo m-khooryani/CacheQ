@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace CacheQ
+namespace CacheQ.Persistence.InMemory
 {
     static class ExtensionMethods
     {

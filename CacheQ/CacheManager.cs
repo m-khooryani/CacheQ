@@ -5,13 +5,15 @@ namespace CacheQ
 {
     internal class CacheManager : ICacheManager
     {
-        private readonly ConcurrentDictionary<string, CacheValueModel> _dictionary;
+        private readonly ICacheStore _cacheStore;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
 
-        public CacheManager(ICacheExpirationResolver cacheExpirationResolver)
+        public CacheManager(
+            ICacheExpirationResolver cacheExpirationResolver,
+            ICacheStore cacheStore)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
-            _dictionary = new ConcurrentDictionary<string, CacheValueModel>();
+            _cacheStore = cacheStore;
         }
 
         public bool TryGetValue<TRequest, TResult>(
@@ -19,12 +21,12 @@ namespace CacheQ
             TRequest request,
             out TResult result)
         {
-            if (!_dictionary.ContainsKey(cachePolicy.Key(request)))
+            if (!_cacheStore.ContainsKey(cachePolicy.Key(request)))
             {
                 result = default;
                 return false;
             }
-            var t = _dictionary[cachePolicy.Key(request)];
+            var t = _cacheStore.Get(cachePolicy.Key(request));
 
             if ((DateTime.UtcNow - t.DateTime) > 
                 _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
@@ -41,7 +43,7 @@ namespace CacheQ
             TRequest request,
             TResult result)
         {
-            _dictionary.AddOrUpdate(
+            _cacheStore.AddOrUpdate(
                 cachePolicy.Key(request),
                 new CacheValueModel(result));
         }

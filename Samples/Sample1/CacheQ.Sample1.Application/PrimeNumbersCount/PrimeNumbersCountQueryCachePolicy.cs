@@ -2,7 +2,7 @@
 {
     class PrimeNumbersCountQueryCachePolicy : ICachePolicy<PrimeNumbersCountQuery>
     {
-        public CacheLevel ExpirationLevel => CacheLevel.Normal;
+        public CacheLevel ExpirationLevel => CacheLevel.Regular;
 
         public string Key(PrimeNumbersCountQuery query)
         {

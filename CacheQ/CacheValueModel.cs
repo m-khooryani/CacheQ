@@ -2,7 +2,7 @@
 
 namespace CacheQ
 {
-    internal class CacheValueModel
+    public class CacheValueModel
     {
         public DateTime DateTime { get; }
         public object Item { get; }

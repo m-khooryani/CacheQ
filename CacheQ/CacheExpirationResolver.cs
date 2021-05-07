@@ -17,10 +17,10 @@ namespace CacheQ
             {
                 CacheLevel.VeryShort => _expirationSettings.VeryShort,
                 CacheLevel.Short => _expirationSettings.Short,
-                CacheLevel.Normal => _expirationSettings.Medium,
+                CacheLevel.Regular => _expirationSettings.Regular,
                 CacheLevel.Long => _expirationSettings.Long,
                 CacheLevel.VeryLong => _expirationSettings.VeryLong,
-                _ => _expirationSettings.Medium,
+                _ => _expirationSettings.Regular,
             };
         }
     }
