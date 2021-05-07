@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CacheQ.Persistence.InMemory.DI.Extensions\CacheQ.Persistence.InMemory.DI.Extensions.csproj" />
     <ProjectReference Include="..\CacheQ\CacheQ.csproj" />
   </ItemGroup>
 

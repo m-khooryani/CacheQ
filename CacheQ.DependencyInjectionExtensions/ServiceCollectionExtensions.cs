@@ -16,18 +16,18 @@ namespace Microsoft.Extensions.DependencyInjection
 		/// <param name="assemblies">The assemblies to scan</param>
 		/// <param name="lifetime"> CachePolicies life time. The default is scoped (per-request in web applications)</param>
 		/// <returns></returns>
-		public static IServiceCollection AddCachePoliciesFromAssemblies(
-			this IServiceCollection services, 
-			IEnumerable<Assembly> assemblies, 
-			ServiceLifetime lifetime = ServiceLifetime.Scoped)
-		{
-			foreach (var assembly in assemblies)
-			{
-				services.AddCachePoliciesFromAssembly(assembly, lifetime);
-			}
+		//public static IServiceCollection AddCachePoliciesFromAssemblies(
+		//	this IServiceCollection services, 
+		//	IEnumerable<Assembly> assemblies, 
+		//	ServiceLifetime lifetime = ServiceLifetime.Scoped)
+		//{
+		//	foreach (var assembly in assemblies)
+		//	{
+		//		services.AddCachePoliciesFromAssembly(assembly, lifetime);
+		//	}
 
-			return services;
-		}
+		//	return services;
+		//}
 
 		/// <summary>
 		/// Adds all cache policies in specified assembly
@@ -36,18 +36,18 @@ namespace Microsoft.Extensions.DependencyInjection
 		/// <param name="assembly">The assembly to scan</param>
 		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web application)</param>
 		/// <returns></returns>
-		public static IServiceCollection AddCachePoliciesFromAssembly(
+		public static IServiceCollection AddCacheQ(
 			this IServiceCollection services, 
-			Assembly assembly, 
-			ServiceLifetime lifetime = ServiceLifetime.Scoped)
+			Assembly assembly,
+			Action<ICacheQConfigurator> configure = null)
 		{
+			var lifetime = ServiceLifetime.Scoped;
             FindCachePoliciesInAssembly(assembly.GetTypes())
                 .ToList()
                 .ForEach(scanResult => services.AddScanResult(scanResult, lifetime));
 
 			services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
 			services.AddSingleton<ICacheManager, CacheManager>();
-			services.AddInMemoryPersistence();
 			services.AddSingleton(serviceProvider =>
 			{
 				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
@@ -56,6 +56,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
 				return cacheExpirationSettings;
 			});
+
+			var builder = new CacheQConfigurator(services);
+			configure?.Invoke(builder);
 
 			return services;
 		}

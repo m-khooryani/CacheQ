@@ -30,7 +30,15 @@ namespace CacheQ.Sample1.API
             });
             services.AddControllers(); 
             services.AddMediatR(typeof(PrimeNumbersCountQuery).Assembly);
-            services.AddCachePoliciesFromAssembly(typeof(PrimeNumbersCountQuery).Assembly);
+
+
+            services.AddCacheQ(typeof(PrimeNumbersCountQuery).Assembly, 
+                options =>
+                {
+                    options.UseInMemoryPersistence();
+                });
+
+
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryLoggingBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>));
             services.AddSwaggerGen(c =>

@@ -5,12 +5,13 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
 	{
-		public static IServiceCollection AddInMemoryPersistence(
-			   this IServiceCollection services)
-		{
-			services.AddSingleton<ICacheStore, InMemoryCacheStore>();
+        public static ICacheQConfigurator UseInMemoryPersistence(
+            this ICacheQConfigurator cacheQConfigurator)
+        {
+            cacheQConfigurator.Services
+                .AddSingleton<ICacheStore, InMemoryCacheStore>();
 
-			return services;
-		}
-	}
+            return cacheQConfigurator;
+        }
+    }
 }
