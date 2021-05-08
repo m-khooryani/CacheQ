@@ -13,7 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj" />
-    <ProjectReference Include="..\..\..\CacheQ.Persistence.InMemory.DI.Extensions\CacheQ.Persistence.InMemory.DI.Extensions.csproj" />
+    <ProjectReference Include="..\..\..\CacheQ.Persistence.InMemory.DI.Extensions\CacheQ.Memory.csproj" />
+    <ProjectReference Include="..\..\..\CacheQ.SqlServer\CacheQ.SqlServer.csproj" />
     <ProjectReference Include="..\CacheQ.Sample1.Application\CacheQ.Sample1.Application.csproj" />
   </ItemGroup>
 

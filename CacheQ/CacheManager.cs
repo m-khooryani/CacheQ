@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Text;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace CacheQ
 {
     internal class CacheManager : ICacheManager
     {
-        private readonly ICacheStore _cacheStore;
+        private readonly IDistributedCache _cache;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
         private readonly PrefixKeyResolver _prefixKeyResolver;
         private readonly ILogger<CacheManager> _logger;
 
         public CacheManager(
             ICacheExpirationResolver cacheExpirationResolver,
-            ICacheStore cacheStore, 
+            IDistributedCache cache, 
             PrefixKeyResolver prefixKeyResolver,
             ILogger<CacheManager> logger)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
-            _cacheStore = cacheStore;
+            _cache = cache;
             _prefixKeyResolver = prefixKeyResolver;
             _logger = logger;
         }
@@ -28,22 +31,24 @@ namespace CacheQ
             out TResult result)
         {
             _logger.LogInformation("Checking cache...");
-            if (!_cacheStore.ContainsKey(Key(cachePolicy, request)))
+            var cachedString = _cache.GetString(Key(cachePolicy, request));
+            if (cachedString == null)
             {
                 _logger.LogInformation("Key not found in cache store");
                 result = default;
                 return false;
             }
-            var t = _cacheStore.Get(Key(cachePolicy, request));
 
-            if ((DateTime.UtcNow - t.DateTime) > 
+            var cacheValue = JsonConvert.DeserializeObject<CacheValueModel<TResult>>(cachedString);
+
+            if ((DateTime.UtcNow - cacheValue.DateTime) >
                 _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
             {
                 _logger.LogInformation("Cache expired!");
                 result = default;
                 return false;
             }
-            result = (TResult)t.Item;
+            result = cacheValue.Item;
             _logger.LogInformation("Item found in cache");
             return true;
         }
@@ -53,9 +58,11 @@ namespace CacheQ
             TRequest request,
             TResult result)
         {
-            _cacheStore.AddOrUpdate(
+            _cache.SetAsync(
                 Key(cachePolicy, request),
-                new CacheValueModel(result));
+                Encoding.UTF8.GetBytes(JsonConvert
+                    .SerializeObject(new CacheValueModel<TResult>(result, DateTime.UtcNow)))
+                );
         }
 
         private string Key<TRequest>(

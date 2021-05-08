@@ -35,7 +35,7 @@ namespace CacheQ.Sample1.API
             services.AddCacheQ(typeof(PrimeNumbersCountQuery).Assembly, 
                 options =>
                 {
-                    options.UseInMemoryPersistence();
+                    options.UseDistributedMemoryCache();
                     options.UsePrefixKey(type =>
                     {
                         return type.Name;

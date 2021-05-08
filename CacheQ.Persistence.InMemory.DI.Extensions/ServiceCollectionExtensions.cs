@@ -1,15 +1,25 @@
-﻿using CacheQ;
-using CacheQ.Persistence.InMemory;
+﻿using System;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
 	{
-        public static ICacheQConfigurator UseInMemoryPersistence(
+        public static ICacheQConfigurator UseDistributedMemoryCache(
             this ICacheQConfigurator cacheQConfigurator)
         {
             cacheQConfigurator.Services
-                .AddSingleton<ICacheStore, InMemoryCacheStore>();
+                .AddDistributedMemoryCache();
+
+            return cacheQConfigurator;
+        }
+
+        public static ICacheQConfigurator UseDistributedMemoryCache(
+            this ICacheQConfigurator cacheQConfigurator,
+            Action<MemoryDistributedCacheOptions> setupAction)
+        {
+            cacheQConfigurator.Services
+                .AddDistributedMemoryCache(setupAction);
 
             return cacheQConfigurator;
         }
