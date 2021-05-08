@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 
 namespace CacheQ
 {
@@ -7,15 +8,18 @@ namespace CacheQ
         private readonly ICacheStore _cacheStore;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
         private readonly PrefixKeyResolver _prefixKeyResolver;
+        private readonly ILogger<CacheManager> _logger;
 
         public CacheManager(
             ICacheExpirationResolver cacheExpirationResolver,
             ICacheStore cacheStore, 
-            PrefixKeyResolver prefixKeyResolver)
+            PrefixKeyResolver prefixKeyResolver,
+            ILogger<CacheManager> logger)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
             _cacheStore = cacheStore;
             _prefixKeyResolver = prefixKeyResolver;
+            _logger = logger;
         }
 
         public bool TryGetValue<TRequest, TResult>(
@@ -23,8 +27,10 @@ namespace CacheQ
             TRequest request,
             out TResult result)
         {
+            _logger.LogInformation("Checking cache...");
             if (!_cacheStore.ContainsKey(Key(cachePolicy, request)))
             {
+                _logger.LogInformation("Key not found in cache store");
                 result = default;
                 return false;
             }
@@ -33,10 +39,12 @@ namespace CacheQ
             if ((DateTime.UtcNow - t.DateTime) > 
                 _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
             {
+                _logger.LogInformation("Cache expired!");
                 result = default;
                 return false;
             }
             result = (TResult)t.Item;
+            _logger.LogInformation("Item found in cache");
             return true;
         }
 
@@ -54,6 +62,7 @@ namespace CacheQ
             ICachePolicy<TRequest> cachePolicy,
             TRequest request)
         {
+            _logger.LogDebug("Get Key of request");
             return _prefixKeyResolver.Func.Invoke(request.GetType()) +
                 cachePolicy.Key(request);
         }
