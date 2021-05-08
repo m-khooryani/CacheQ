@@ -17,7 +17,7 @@ namespace CacheQ.Sample1.Application.PrimeNumbersCount
                     count++;
                 }
             }
-            Task.Delay(TimeSpan.FromSeconds(3), cancellationToken)
+            Task.Delay(TimeSpan.FromSeconds(4), cancellationToken)
                 .Wait(cancellationToken);
             return Task.FromResult(count);
         }

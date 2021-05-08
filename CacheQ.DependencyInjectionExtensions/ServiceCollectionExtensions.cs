@@ -58,9 +58,33 @@ namespace Microsoft.Extensions.DependencyInjection
 			});
 
 			var builder = new CacheQConfigurator(services);
+			builder.UsePrefixKey(type =>
+			{
+				return type.Assembly.GetName().Name + "," + type.FullName;
+			});
 			configure?.Invoke(builder);
 
 			return services;
+		}
+
+		/// <summary>
+		/// Adds all cache policies in specified assembly
+		/// </summary>
+		/// <param name="configurator">The collection of services</param>
+		/// <param name="assembly">The assembly to scan</param>
+		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web application)</param>
+		/// <returns></returns>
+		public static ICacheQConfigurator UsePrefixKey(
+			this ICacheQConfigurator configurator, 
+			Func<Type, string> prefixFunc)
+		{
+			configurator.Services.AddSingleton(new PrefixKeyResolver()
+			{
+				Func = prefixFunc
+			});
+			//configurator.Services.
+
+			return configurator;
 		}
 
 		/// <summary>

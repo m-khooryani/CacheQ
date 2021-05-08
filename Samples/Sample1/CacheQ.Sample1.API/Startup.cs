@@ -36,6 +36,10 @@ namespace CacheQ.Sample1.API
                 options =>
                 {
                     options.UseInMemoryPersistence();
+                    options.UsePrefixKey(type =>
+                    {
+                        return type.Name;
+                    });
                 });
 
 

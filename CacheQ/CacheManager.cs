@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 
 namespace CacheQ
 {
@@ -7,13 +6,16 @@ namespace CacheQ
     {
         private readonly ICacheStore _cacheStore;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
+        private readonly PrefixKeyResolver _prefixKeyResolver;
 
         public CacheManager(
             ICacheExpirationResolver cacheExpirationResolver,
-            ICacheStore cacheStore)
+            ICacheStore cacheStore, 
+            PrefixKeyResolver prefixKeyResolver)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
             _cacheStore = cacheStore;
+            _prefixKeyResolver = prefixKeyResolver;
         }
 
         public bool TryGetValue<TRequest, TResult>(
@@ -21,12 +23,12 @@ namespace CacheQ
             TRequest request,
             out TResult result)
         {
-            if (!_cacheStore.ContainsKey(cachePolicy.Key(request)))
+            if (!_cacheStore.ContainsKey(Key(cachePolicy, request)))
             {
                 result = default;
                 return false;
             }
-            var t = _cacheStore.Get(cachePolicy.Key(request));
+            var t = _cacheStore.Get(Key(cachePolicy, request));
 
             if ((DateTime.UtcNow - t.DateTime) > 
                 _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
@@ -44,8 +46,16 @@ namespace CacheQ
             TResult result)
         {
             _cacheStore.AddOrUpdate(
-                cachePolicy.Key(request),
+                Key(cachePolicy, request),
                 new CacheValueModel(result));
+        }
+
+        private string Key<TRequest>(
+            ICachePolicy<TRequest> cachePolicy,
+            TRequest request)
+        {
+            return _prefixKeyResolver.Func.Invoke(request.GetType()) +
+                cachePolicy.Key(request);
         }
     }
 }
