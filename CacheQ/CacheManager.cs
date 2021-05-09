@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
+using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace CacheQ
 {
@@ -11,17 +10,20 @@ namespace CacheQ
         private readonly IDistributedCache _cache;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
         private readonly PrefixKeyResolver _prefixKeyResolver;
+        private readonly ISystemClock _systemClock;
         private readonly ILogger<CacheManager> _logger;
 
         public CacheManager(
             ICacheExpirationResolver cacheExpirationResolver,
-            IDistributedCache cache, 
+            IDistributedCache cache,
             PrefixKeyResolver prefixKeyResolver,
+            ISystemClock systemClock,
             ILogger<CacheManager> logger)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
             _cache = cache;
             _prefixKeyResolver = prefixKeyResolver;
+            _systemClock = systemClock;
             _logger = logger;
         }
 
@@ -39,9 +41,9 @@ namespace CacheQ
                 return false;
             }
 
-            var cacheValue = JsonConvert.DeserializeObject<CacheValueModel<TResult>>(cachedString);
+            var cacheValue = JsonSerializer.Deserialize<CacheValueModel<TResult>>(cachedString);
 
-            if ((DateTime.UtcNow - cacheValue.DateTime) >
+            if ((_systemClock.UtcNow - cacheValue.DateTime) >
                 _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
             {
                 _logger.LogInformation("Cache expired!");
@@ -60,8 +62,8 @@ namespace CacheQ
         {
             _cache.SetAsync(
                 Key(cachePolicy, request),
-                Encoding.UTF8.GetBytes(JsonConvert
-                    .SerializeObject(new CacheValueModel<TResult>(result, DateTime.UtcNow)))
+                Encoding.UTF8.GetBytes(JsonSerializer
+                    .Serialize(new CacheValueModel<TResult>(result, _systemClock.UtcNow)))
                 );
         }
 

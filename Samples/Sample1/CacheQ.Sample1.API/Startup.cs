@@ -35,7 +35,7 @@ namespace CacheQ.Sample1.API
             services.AddCacheQ(typeof(PrimeNumbersCountQuery).Assembly, 
                 options =>
                 {
-                    //options.UseStackExchangeRedisCache(x=>x.)
+                    //options.UseDistributedSqlServerCache(x=>x.SystemClock)
                     options.UseDistributedMemoryCache();
                     options.UsePrefixKey(type =>
                     {

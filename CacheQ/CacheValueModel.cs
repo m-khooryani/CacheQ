@@ -4,12 +4,12 @@ namespace CacheQ
 {
     public class CacheValueModel<T>
     {
-        public DateTime DateTime { get; }
+        public DateTimeOffset DateTime { get; }
         public T Item { get; }
 
         public CacheValueModel(
             T item,
-            DateTime dateTime)
+            DateTimeOffset dateTime)
         {
             Item = item;
             DateTime = dateTime;

@@ -9,72 +9,75 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
 	{
-		/// <summary>
-		/// Adds all cache policies in specified assemblies
-		/// </summary>
-		/// <param name="services">The collection of services</param>
-		/// <param name="assemblies">The assemblies to scan</param>
-		/// <param name="lifetime"> CachePolicies life time. The default is scoped (per-request in web applications)</param>
-		/// <returns></returns>
-		//public static IServiceCollection AddCachePoliciesFromAssemblies(
-		//	this IServiceCollection services, 
-		//	IEnumerable<Assembly> assemblies, 
-		//	ServiceLifetime lifetime = ServiceLifetime.Scoped)
-		//{
-		//	foreach (var assembly in assemblies)
-		//	{
-		//		services.AddCachePoliciesFromAssembly(assembly, lifetime);
-		//	}
+        /// <summary>
+        /// Adds all cache policies in specified assemblies
+        /// </summary>
+        /// <param name="services">The collection of services</param>
+        /// <param name="assemblies">The assemblies to scan</param>
+        /// <returns></returns>
+        public static IServiceCollection AddCachePoliciesFromAssemblies(
+            this IServiceCollection services,
+            IEnumerable<Assembly> assemblies)
+        {
+            var lifetime = ServiceLifetime.Scoped;
+            FindCachePoliciesInAssembly(assemblies.SelectMany(x => x.GetTypes()))
+                .ToList()
+                .ForEach(scanResult => services.Register(scanResult, lifetime));
 
-		//	return services;
-		//}
+            return AddDefaultDependencies(services);
+        }
 
-		/// <summary>
-		/// Adds all cache policies in specified assembly
-		/// </summary>
-		/// <param name="services">The collection of services</param>
-		/// <param name="assembly">The assembly to scan</param>
-		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web application)</param>
-		/// <returns></returns>
-		public static IServiceCollection AddCacheQ(
+        /// <summary>
+        /// Adds all cache policies in specified assembly
+        /// </summary>
+        /// <param name="services">The collection of services</param>
+        /// <param name="assembly">The assembly to scan</param>
+        /// <returns></returns>
+        public static IServiceCollection AddCacheQ(
 			this IServiceCollection services, 
 			Assembly assembly,
 			Action<ICacheQConfigurator> configure = null)
-		{
-			var lifetime = ServiceLifetime.Scoped;
+        {
+            var lifetime = ServiceLifetime.Scoped;
             FindCachePoliciesInAssembly(assembly.GetTypes())
                 .ToList()
-                .ForEach(scanResult => services.AddScanResult(scanResult, lifetime));
+                .ForEach(scanResult => services.Register(scanResult, lifetime));
 
-			services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
-			services.AddSingleton<ICacheManager, CacheManager>();
-			services.AddSingleton(serviceProvider =>
-			{
-				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-				var cacheExpirationSettings = new CacheExpirationSettings();
-				configuration.GetSection("CacheQ").Bind(cacheExpirationSettings);
+            return AddDefaultDependencies(services, configure);
+        }
 
-				return cacheExpirationSettings;
-			});
+        private static IServiceCollection AddDefaultDependencies(
+			IServiceCollection services, 
+			Action<ICacheQConfigurator> configure = null)
+        {
+            services.AddSingleton<ICacheExpirationResolver, CacheExpirationResolver>();
+            services.AddSingleton<ICacheManager, CacheManager>();
+            services.AddSingleton<ISystemClock, SystemClock>();
+            services.AddSingleton(serviceProvider =>
+            {
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                var cacheExpirationSettings = new CacheExpirationSettings();
+                configuration.GetSection("CacheQ").Bind(cacheExpirationSettings);
 
-			var builder = new CacheQConfigurator(services);
-			builder.UsePrefixKey(type =>
-			{
-				return type.Assembly.GetName().Name + "," + type.FullName;
-			});
-			configure?.Invoke(builder);
+                return cacheExpirationSettings;
+            });
 
-			return services;
-		}
+            var builder = new CacheQConfigurator(services);
+            builder.UsePrefixKey(type =>
+            {
+                return type.Assembly.GetName().Name + "," + type.FullName;
+            });
+            configure?.Invoke(builder);
 
-		/// <summary>
-		/// Adds all cache policies in specified assembly
-		/// </summary>
-		/// <param name="configurator">The collection of services</param>
-		/// <param name="assembly">The assembly to scan</param>
-		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web application)</param>
-		/// <returns></returns>
-		public static ICacheQConfigurator UsePrefixKey(
+            return services;
+        }
+
+        /// <summary>
+        /// Adds all cache policies in specified assembly
+        /// </summary>
+        /// <param name="configurator">The collection of services</param>
+        /// <returns></returns>
+        public static ICacheQConfigurator UsePrefixKey(
 			this ICacheQConfigurator configurator, 
 			Func<Type, string> prefixFunc)
 		{
@@ -82,7 +85,6 @@ namespace Microsoft.Extensions.DependencyInjection
 			{
 				Func = prefixFunc
 			});
-			//configurator.Services.
 
 			return configurator;
 		}
@@ -94,7 +96,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		/// <param name="scanResult">The scan result</param>
 		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web applications)</param>
 		/// <returns></returns>
-		private static IServiceCollection AddScanResult(
+		private static IServiceCollection Register(
 			this IServiceCollection services, 
 			AssemblyScanResult scanResult, 
 			ServiceLifetime lifetime)
