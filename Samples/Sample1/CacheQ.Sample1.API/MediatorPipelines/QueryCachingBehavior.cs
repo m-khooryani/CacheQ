@@ -26,10 +26,10 @@ namespace CacheQ.Sample1.API.MediatorPipelines
             {
                 return await next();
             }
-            return await CheckCache(request, next);
+            return await ReadOrUpdateCache(request, next);
         }
 
-        private async Task<TResult> CheckCache(TRequest request, RequestHandlerDelegate<TResult> next)
+        private async Task<TResult> ReadOrUpdateCache(TRequest request, RequestHandlerDelegate<TResult> next)
         {
             if (_cacheManager.TryGetValue(
                             _cachePolicy,
