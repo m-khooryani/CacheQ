@@ -22,18 +22,27 @@ namespace CacheQ.Sample1.API.MediatorPipelines
 
         public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
         {
-            if (_cachePolicy == null)
+            if (_cachePolicy is null)
             {
                 return await next();
             }
+            return await CheckCache(request, next);
+        }
+
+        private async Task<TResult> CheckCache(TRequest request, RequestHandlerDelegate<TResult> next)
+        {
             if (_cacheManager.TryGetValue(
-                _cachePolicy, 
-                request,
-                out TResult cachedResult))
+                            _cachePolicy,
+                            request,
+                            out TResult cachedResult))
             {
                 return await Task.FromResult(cachedResult);
             }
+
+            // Read From Handler
             TResult result = await next();
+
+            // Update Cache
             _cacheManager.SetItem(_cachePolicy, request, result);
 
             return result;
