@@ -1,18 +1,12 @@
-﻿using System;
-
-namespace CacheQ
+﻿namespace CacheQ
 {
     public class CacheValueModel<T>
     {
-        public DateTimeOffset DateTime { get; }
         public T Item { get; }
 
-        public CacheValueModel(
-            T item,
-            DateTimeOffset dateTime)
+        public CacheValueModel(T item)
         {
             Item = item;
-            DateTime = dateTime;
         }
     }
 }

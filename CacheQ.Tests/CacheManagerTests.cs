@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Internal;
 using NSubstitute;
 using Xunit;
 
@@ -43,7 +44,7 @@ namespace CacheQ.Tests
         public void Test2()
         {
             var utcNow = DateTimeOffset.UtcNow;
-            var cacheValueModel = new CacheValueModel<int>(5, utcNow.AddDays(-1));
+            var cacheValueModel = new CacheValueModel<int>(5);
             var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
             var distributedCache = Substitute.For<IDistributedCache>();
             distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);
@@ -62,7 +63,6 @@ namespace CacheQ.Tests
             var cacheManager = new CacheManagerBuilder()
                 .SetDistributedCache(distributedCache)
                 .SetPrefixKeyResolver(prefixKeyResolver)
-                .SetSystemClock(clock)
                 .Build();
 
             var cachePolicy = Substitute.For<ICachePolicy<SomeQuery>>();
@@ -78,7 +78,7 @@ namespace CacheQ.Tests
         public void Test3()
         {
             var utcNow = DateTimeOffset.UtcNow;
-            var cacheValueModel = new CacheValueModel<int>(5, utcNow);
+            var cacheValueModel = new CacheValueModel<int>(5);
             var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
             var distributedCache = Substitute.For<IDistributedCache>();
             distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);

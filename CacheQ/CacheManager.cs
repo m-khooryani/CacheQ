@@ -10,20 +10,17 @@ namespace CacheQ
         private readonly IDistributedCache _cache;
         private readonly ICacheExpirationResolver _cacheExpirationResolver;
         private readonly PrefixKeyResolver _prefixKeyResolver;
-        private readonly ISystemClock _systemClock;
         private readonly ILogger<CacheManager> _logger;
 
         public CacheManager(
             ICacheExpirationResolver cacheExpirationResolver,
             IDistributedCache cache,
             PrefixKeyResolver prefixKeyResolver,
-            ISystemClock systemClock,
             ILogger<CacheManager> logger)
         {
             _cacheExpirationResolver = cacheExpirationResolver;
             _cache = cache;
             _prefixKeyResolver = prefixKeyResolver;
-            _systemClock = systemClock;
             _logger = logger;
         }
 
@@ -43,13 +40,6 @@ namespace CacheQ
 
             var cacheValue = JsonSerializer.Deserialize<CacheValueModel<TResult>>(cachedString);
 
-            if ((_systemClock.UtcNow - cacheValue.DateTime) >
-                _cacheExpirationResolver.GetExpiryTime(cachePolicy.ExpirationLevel))
-            {
-                _logger.LogInformation("Cache expired!");
-                result = default;
-                return false;
-            }
             result = cacheValue.Item;
             _logger.LogInformation("Item found in cache");
             return true;
@@ -63,8 +53,12 @@ namespace CacheQ
             _cache.SetAsync(
                 Key(cachePolicy, request),
                 Encoding.UTF8.GetBytes(JsonSerializer
-                    .Serialize(new CacheValueModel<TResult>(result, _systemClock.UtcNow)))
-                );
+                    .Serialize(new CacheValueModel<TResult>(result))),
+                new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpirationRelativeToNow = _cacheExpirationResolver
+                        .GetExpiryTime(cachePolicy.ExpirationLevel),
+                });
         }
 
         private string Key<TRequest>(

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using CacheQ;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Internal;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -11,7 +11,6 @@ namespace CacheQ.Tests
         private IDistributedCache _cache = Substitute.For<IDistributedCache>();
         private ICacheExpirationResolver _cacheExpirationResolver = Substitute.For<ICacheExpirationResolver>();
         private PrefixKeyResolver _prefixKeyResolver = Substitute.For<PrefixKeyResolver>();
-        private ISystemClock _systemClock = Substitute.For<ISystemClock>();
         private ILogger<CacheManager> _logger = Substitute.For<ILogger<CacheManager>>();
 
         public CacheManager Build()
@@ -19,14 +18,7 @@ namespace CacheQ.Tests
             return new CacheManager(_cacheExpirationResolver,
                 _cache,
                 _prefixKeyResolver,
-                _systemClock,
                 _logger);
-        }
-
-        public CacheManagerBuilder SetSystemClock(ISystemClock systemClock)
-        {
-            _systemClock = systemClock;
-            return this;
         }
 
         public CacheManagerBuilder SetPrefixKeyResolver(PrefixKeyResolver prefixKeyResolver)
