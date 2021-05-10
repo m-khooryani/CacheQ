@@ -6,7 +6,7 @@
 
 &nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
 
-&nbsp;&nbsp;[1.2 Quick Start](#12-purpose-of-this-repository)
+&nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
 
 &nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
