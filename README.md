@@ -199,9 +199,9 @@ services.AddCacheQ(assembly,
 services.AddCacheQ(assembly, 
     options =>
     {
-        options.UseDistributedMemoryCache(memoryCacheOptions =>
+        options.UseStackExchangeRedisCache(redisOptions =>
         {
-            memoryCacheOptions.SizeLimit = 1024;
+            redisOptions.Configuration = "...";
             // ...
         });
     });
@@ -212,9 +212,11 @@ services.AddCacheQ(assembly,
 services.AddCacheQ(assembly, 
     options =>
     {
-        options.UseDistributedMemoryCache(memoryCacheOptions =>
+        options.UseDistributedSqlServerCache(sqlOptions =>
         {
-            memoryCacheOptions.SizeLimit = 1024;
+            sqlOptions.ConnectionString = "...";
+            sqlOptions.SchemaName = "";
+            sqlOptions.TableName = "";
             // ...
         });
     });
