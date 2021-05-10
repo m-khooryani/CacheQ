@@ -10,7 +10,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.2 Query](#121-query)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.2 Query](#122-query)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Cache Policy](#123-cache-policy)
 
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
@@ -41,7 +43,7 @@ public class EvenNumbersCountQuery : IRequest<int>
 }
 ```
 
-then cache policy
+#### 1.2.3
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 {
