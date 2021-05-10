@@ -14,6 +14,8 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Cache Policy](#123-cache-policy)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 MediatR Caching Behaviour](#124-mediatr-caching-behaviour)
+
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
 [2. Features](#2-Domain)
@@ -56,7 +58,7 @@ class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 }
 ```
     
-MediatR caching Behaviour:
+#### 1.2.4 MediatR Caching Behaviour
 
 ```csharp
 internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
