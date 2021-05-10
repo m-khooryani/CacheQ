@@ -14,7 +14,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Cache Policy](#123-cache-policy)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 MediatR Caching Behaviour](#124-mediatr-caching-behaviour)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 MediatR Caching Behavior](#124-mediatr-caching-behavior)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.5 Dependency Injection](#125-dependency-injection)
 
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
@@ -58,7 +60,7 @@ class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 }
 ```
     
-#### 1.2.4 MediatR Caching Behaviour
+#### 1.2.4 MediatR Caching Behavior
 
 ```csharp
 internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
@@ -107,7 +109,7 @@ internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequ
 }
 ```
 
-and DI
+#### 1.2.5 Dependency Injection
 
 ```csharp
 services.AddMediatR(queriesAssembly);
@@ -121,4 +123,3 @@ services.AddCacheQ(queriesAssembly,
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>));
 ```
 
-now everything is set 
