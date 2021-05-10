@@ -34,6 +34,9 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 Sql Server](#223-sql-server)
 
+&nbsp;&nbsp;&nbsp;[2.3 Prefix Key](#23-prefix-key)
+
+
 
 
 
@@ -221,4 +224,15 @@ services.AddCacheQ(assembly,
         });
     });
 ```
+
+### 2.2 Prefix Key
+Consider these Queries: EvenNumbersCountQuery and OddNumbersCountQuery. CachePolicy for them would be similar so it's needed to distinguish cache values base on Query Type
+
+this is the default implementation for PrefixKey:
+it's customizable base on your need (recommended as default is quile large!)
+```csharp
+builder.UsePrefixKey(type =>
+    {
+        return type.Assembly.GetName().Name + "," + type.FullName;
+    });
 ```
