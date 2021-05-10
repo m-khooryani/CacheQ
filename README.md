@@ -182,9 +182,9 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 services.AddCacheQ(assembly, 
     options =>
     {
-        options.UseDistributedMemoryCache(options =>
+        options.UseDistributedMemoryCache(memoryCacheOptions =>
         {
-            options.SizeLimit = 1024;
+            memoryCacheOptions.SizeLimit = 1024;
             // ...
         });
     });
