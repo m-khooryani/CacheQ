@@ -36,7 +36,7 @@
 
 &nbsp;&nbsp;&nbsp;[2.3 Prefix Key](#23-prefix-key)
 
-
+&nbsp;&nbsp;&nbsp;[2.4 Logging](#24-logging)
 
 
 
@@ -236,4 +236,27 @@ builder.UsePrefixKey(type =>
     {
         return type.Assembly.GetName().Name + "," + type.FullName;
     });
+```
+
+### 2.4 Logging 
+Logging is customizable
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "CacheQ": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "CacheQ": {
+    "veryShort": "00:00:10",
+    "short": "00:00:30",
+    "regular": "00:01:00",
+    "long": "00:05:00",
+    "veryLong": "00:30:00"
+  }
+}
 ```
