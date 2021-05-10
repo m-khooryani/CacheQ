@@ -80,7 +80,7 @@ class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
 }
 ```
 
-#### 1.2.3 Cache Policy
+#### 1.2.4 Cache Policy
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 {
@@ -93,7 +93,7 @@ class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 }
 ```
     
-#### 1.2.4 MediatR Caching Behavior
+#### 1.2.5 MediatR Caching Behavior
 
 ```csharp
 internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
@@ -142,7 +142,7 @@ internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequ
 }
 ```
 
-#### 1.2.5 Dependency Injection
+#### 1.2.6 Dependency Injection
 
 ```csharp
 services.AddMediatR(queriesAssembly);
