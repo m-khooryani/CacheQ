@@ -4,17 +4,17 @@
 
 [1. Introduction](#1-Introduction)
 
-&nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
+&nbsp;&nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
 
-&nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
+&nbsp;&nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
 
-&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
+&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
 [2. Features](#2-Domain)
 
-&nbsp;&nbsp;[2.1 Description](#21-description)
+&nbsp;&nbsp;&nbsp;[2.1 Description](#21-description)
 
 ## 1. Introduction
 
