@@ -1,13 +1,12 @@
 # CacheQ
-CacheQ assists you to implement distributed cache simply! 
 
 ## Contents
 
 [1. Introduction](#1-Introduction)
 
-&nbsp;&nbsp;[1.1 What is CacheQ?](#11-purpose-of-this-repository)
+&nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
 
-&nbsp;&nbsp;[1.2 Quck Start](#11-purpose-of-this-repository)
+&nbsp;&nbsp;[1.2 Quick Start](#11-purpose-of-this-repository)
 
 &nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
@@ -17,8 +16,11 @@ CacheQ assists you to implement distributed cache simply!
 
 ## 1. Introduction
 
-### 1.1 Purpose of this Repository
+### 1.1 What is CacheQ
 
+CacheQ assists you to implement distributed cache simply! 
+
+### 1.2 Quick Start
 
 This is a simple sample usage with the CQRS pattern and MediatR:
 
