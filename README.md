@@ -8,7 +8,7 @@
 
 &nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
 
-[1.2.1 NuGet Packages](#121-nuget-packages)
+&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
 
 &nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
