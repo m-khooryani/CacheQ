@@ -10,6 +10,8 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.2 Query](#121-query)
+
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
 [2. Features](#2-Domain)
@@ -28,6 +30,8 @@ CacheQ assists you to implement distributed cache simply!
 
 Required Packages:
 CacheQ
+
+#### 1.2.2 Query
 
 ```csharp
 public class EvenNumbersCountQuery : IRequest<int>
