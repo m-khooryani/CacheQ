@@ -43,7 +43,7 @@ public class EvenNumbersCountQuery : IRequest<int>
 }
 ```
 
-#### 1.2.3
+#### 1.2.3 Cache Policy
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 {
