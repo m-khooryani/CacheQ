@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using CacheQ;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Internal;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
 	{
         /// <summary>
@@ -20,7 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             this IServiceCollection services,
             IEnumerable<Assembly> assemblies)
         {
-            var lifetime = ServiceLifetime.Scoped;
+            var lifetime = ServiceLifetime.Singleton;
             FindCachePoliciesInAssembly(assemblies.SelectMany(x => x.GetTypes()))
                 .ToList()
                 .ForEach(scanResult => services.Register(scanResult, lifetime));
@@ -39,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
 			Assembly assembly,
 			Action<ICacheQConfigurator> configure = null)
         {
-            var lifetime = ServiceLifetime.Scoped;
+            var lifetime = ServiceLifetime.Singleton;
             FindCachePoliciesInAssembly(assembly.GetTypes())
                 .ToList()
                 .ForEach(scanResult => services.Register(scanResult, lifetime));
@@ -95,7 +97,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		/// </summary>
 		/// <param name="services">The collection of services</param>
 		/// <param name="scanResult">The scan result</param>
-		/// <param name="lifetime">CachePolicies life time. The default is scoped (per-request in web applications)</param>
+		/// <param name="lifetime">CachePolicies life time. The default is singleton (per-request in web applications)</param>
 		/// <returns></returns>
 		private static IServiceCollection Register(
 			this IServiceCollection services, 

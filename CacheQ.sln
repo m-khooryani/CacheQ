@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheQ.SqlServer", "CacheQ.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheQ.StackExchangeRedis", "CacheQ.StackExchangeRedis\CacheQ.StackExchangeRedis.csproj", "{5E7DF43F-718E-47C6-8842-4B971FEC936C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ.Tests", "CacheQ.Tests\CacheQ.Tests.csproj", "{5EDC56BB-94A4-4601-8521-7D80CA9C6727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheQ.Tests", "CacheQ.Tests\CacheQ.Tests.csproj", "{5EDC56BB-94A4-4601-8521-7D80CA9C6727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheQ.Tests.E2E", "CacheQ.Tests.E2E\CacheQ.Tests.E2E.csproj", "{1BD5E72D-5932-4292-B438-669AA8861762}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{5EDC56BB-94A4-4601-8521-7D80CA9C6727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EDC56BB-94A4-4601-8521-7D80CA9C6727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EDC56BB-94A4-4601-8521-7D80CA9C6727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD5E72D-5932-4292-B438-669AA8861762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD5E72D-5932-4292-B438-669AA8861762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD5E72D-5932-4292-B438-669AA8861762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD5E72D-5932-4292-B438-669AA8861762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

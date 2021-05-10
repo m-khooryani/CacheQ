@@ -50,15 +50,16 @@ namespace CacheQ
             TRequest request,
             TResult result)
         {
+            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = _cacheExpirationResolver
+                                    .GetExpiryTime(cachePolicy.ExpirationLevel),
+            };
             _cache.SetAsync(
                 Key(cachePolicy, request),
                 Encoding.UTF8.GetBytes(JsonSerializer
                     .Serialize(result)),
-                new DistributedCacheEntryOptions()
-                {
-                    AbsoluteExpirationRelativeToNow = _cacheExpirationResolver
-                        .GetExpiryTime(cachePolicy.ExpirationLevel),
-                });
+                options);
         }
 
         private string Key<TRequest>(

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    internal class AssemblyScanResult
+	[ExcludeFromCodeCoverage]
+	internal class AssemblyScanResult
 	{
 		public Type InterfaceType { get; }
 		public Type CachePolicyType { get; }
