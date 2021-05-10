@@ -38,9 +38,9 @@ namespace CacheQ
                 return false;
             }
 
-            var cacheValue = JsonSerializer.Deserialize<CacheValueModel<TResult>>(cachedString);
+            var cacheValue = JsonSerializer.Deserialize<TResult>(cachedString);
 
-            result = cacheValue.Item;
+            result = cacheValue;
             _logger.LogInformation("Item found in cache");
             return true;
         }
@@ -53,7 +53,7 @@ namespace CacheQ
             _cache.SetAsync(
                 Key(cachePolicy, request),
                 Encoding.UTF8.GetBytes(JsonSerializer
-                    .Serialize(new CacheValueModel<TResult>(result))),
+                    .Serialize(result)),
                 new DistributedCacheEntryOptions()
                 {
                     AbsoluteExpirationRelativeToNow = _cacheExpirationResolver

@@ -10,12 +10,12 @@ namespace CacheQ.Tests
         [Fact]
         public void Test1()
         {
-            var cacheValueModel = new CacheValueModel<int>(45);
+            var cacheValueModel = 45;
 
             var json = JsonSerializer.Serialize(cacheValueModel);
-            var deserialized = JsonSerializer.Deserialize<CacheValueModel<int>>(json);
+            var deserialized = JsonSerializer.Deserialize<int>(json);
 
-            Assert.Equal(cacheValueModel.Item, deserialized.Item);
+            Assert.Equal(cacheValueModel, deserialized);
         }
     }
 }

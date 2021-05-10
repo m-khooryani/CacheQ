@@ -44,7 +44,7 @@ namespace CacheQ.Tests
         public void Test2()
         {
             var utcNow = DateTimeOffset.UtcNow;
-            var cacheValueModel = new CacheValueModel<int>(5);
+            var cacheValueModel = 5;
             var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
             var distributedCache = Substitute.For<IDistributedCache>();
             distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);
@@ -78,7 +78,7 @@ namespace CacheQ.Tests
         public void Test3()
         {
             var utcNow = DateTimeOffset.UtcNow;
-            var cacheValueModel = new CacheValueModel<int>(5);
+            var cacheValueModel = 5;
             var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
             var distributedCache = Substitute.For<IDistributedCache>();
             distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);
