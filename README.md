@@ -8,6 +8,8 @@
 
 &nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
 
+[1.2.1 NuGet Packages](#121-nuget-packages)
+
 &nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
 [2. Features](#2-Domain)
@@ -22,11 +24,10 @@ CacheQ assists you to implement distributed cache simply!
 
 ### 1.2 Quick Start
 
-This is a simple sample usage with the CQRS pattern and MediatR:
-
-first define a query
+#### 1.2.1 NuGet Packages
 
 Required Packages:
+CacheQ
 
 ```csharp
 public class EvenNumbersCountQuery : IRequest<int>
