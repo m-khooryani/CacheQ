@@ -148,3 +148,23 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 ## 2. Features
 
 ### 2.1 Cache Level Configuration
+
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "CacheQ": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "CacheQ": {
+    "veryShort": "00:00:00",
+    "short": "00:00:00",
+    "regular": "00:00:15",
+    "long": "00:00:00",
+    "veryLong": "00:00:00"
+  }
+}
+
