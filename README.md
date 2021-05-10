@@ -28,6 +28,11 @@
 
 &nbsp;&nbsp;&nbsp;[2.2 Cache Providers](#22-cache-providers)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.1 Memory](#221-memory)
+
+
+
+
 ## 1. Introduction
 
 ### 1.1 What is CacheQ
@@ -172,4 +177,6 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 
 ### 2.2 Cache Providers
 
-Memory, SqlServer, Redis are supported.
+#### 2.2.1 Memory
+
+this is usage of memory provider.
