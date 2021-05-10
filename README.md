@@ -26,6 +26,8 @@
 
 &nbsp;&nbsp;&nbsp;[2.1 Cache Level Configuration](#21-cache-level-configuration)
 
+&nbsp;&nbsp;&nbsp;[2.2 Cache Providers](#22-cache-providers)
+
 ## 1. Introduction
 
 ### 1.1 What is CacheQ
@@ -167,3 +169,7 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 }
 ```
 
+
+### 2.2 Cache Providers
+
+Memory, SqlServer, Redis are supported.
