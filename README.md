@@ -225,7 +225,7 @@ services.AddCacheQ(assembly,
     });
 ```
 
-### 2.2 Prefix Key
+### 2.3 Prefix Key
 Consider these Queries: EvenNumbersCountQuery and OddNumbersCountQuery. CachePolicy for them would be similar so it's needed to distinguish cache values base on Query Type
 
 this is the default implementation for PrefixKey:
