@@ -178,5 +178,14 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 ### 2.2 Cache Providers
 
 #### 2.2.1 Memory
-
-this is usage of memory provider.
+```csharp
+services.AddCacheQ(assembly, 
+                options =>
+                {
+                    options.UseDistributedMemoryCache(options =>
+                    {
+                        options.SizeLimit = 1024;
+                        // ...
+                    });
+                });
+```
