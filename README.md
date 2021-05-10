@@ -149,6 +149,7 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 
 ### 2.1 Cache Level Configuration
 
+```json
 {
   "Logging": {
     "LogLevel": {
@@ -167,4 +168,5 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
     "veryLong": "00:00:00"
   }
 }
+```
 
