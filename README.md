@@ -160,7 +160,7 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
     }
   },
   "AllowedHosts": "*",
-  "CacheQ": {
+  "**CacheQ**": {
     "veryShort": "00:00:00",
     "short": "00:00:00",
     "regular": "00:00:15",
