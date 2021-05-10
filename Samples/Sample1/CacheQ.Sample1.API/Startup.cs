@@ -23,7 +23,6 @@ namespace CacheQ.Sample1.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddLogging(builder =>
             {
                 builder.AddConsole();
@@ -35,9 +34,6 @@ namespace CacheQ.Sample1.API
             services.AddCacheQ(typeof(PrimeNumbersCountQuery).Assembly, 
                 options =>
                 {
-                    //options.UseDistributedSqlServerCache(x =>
-                    //{
-                    //});
                     options.UseDistributedMemoryCache();
                     options.UsePrefixKey(type =>
                     {

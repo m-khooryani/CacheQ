@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj" />
+    <ProjectReference Include="..\..\CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj" />
   </ItemGroup>
 
 </Project>

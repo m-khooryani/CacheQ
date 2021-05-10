@@ -26,8 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Persistence\CacheQ.Persistence.InMemory.DI.Extensions\CacheQ.Memory.csproj" />
+    <ProjectReference Include="..\..\Src\CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj" />
     <ProjectReference Include="..\..\Src\CacheQ\CacheQ.csproj" />
+    <ProjectReference Include="..\..\Src\Persistence\CacheQ.Memory\CacheQ.Memory.csproj" />
   </ItemGroup>
 
   <ItemGroup>
