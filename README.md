@@ -230,7 +230,7 @@ Consider these Queries: **EvenNumbersCountQuery** and **OddNumbersCountQuery**. 
 
 this is the default implementation for PrefixKey:
 
-it's customizable base on your need (**recommended as default is quile large!**)
+it's customizable base on your need (**recommended as default is quite large!**)
 ```csharp
 builder.UsePrefixKey(type =>
     {
