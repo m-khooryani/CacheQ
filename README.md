@@ -12,11 +12,13 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.2 Query](#122-query)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Cache Policy](#123-cache-policy)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Query Handler](#123-query-handler)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 MediatR Caching Behavior](#124-mediatr-caching-behavior)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 Cache Policy](#124-cache-policy)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.5 Dependency Injection](#125-dependency-injection)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.5 MediatR Caching Behavior](#125-mediatr-caching-behavior)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.6 Dependency Injection](#126-dependency-injection)
 
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
@@ -44,6 +46,26 @@ public class EvenNumbersCountQuery : IRequest<int>
 {
     public int StartRange { get; set; }
     public int EndRange { get; set; }
+}
+```
+
+#### 1.2.3 Query Handler
+
+```csharp
+class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
+{
+    public Task<int> Handle(EvenNumbersCountQuery request, CancellationToken cancellationToken)
+    {
+        int count = 0;
+        for (int i = request.StartRange; i < request.EndRange; i++)
+        {
+            if (i % 2 == 0)
+            {
+                count++;
+            }
+        }
+        return Task.FromResult(count);
+    }
 }
 ```
 
