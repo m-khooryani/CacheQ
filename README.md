@@ -153,19 +153,16 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 {
   "Logging": {
     "LogLevel": {
-      "Default": "Information",
-      "Microsoft": "Warning",
-      "Microsoft.Hosting.Lifetime": "Information",
-      "CacheQ": "Information"
+      "Default": "Information"
     }
   },
   "AllowedHosts": "*",
-  "**CacheQ**": {
-    "veryShort": "00:00:00",
-    "short": "00:00:00",
-    "regular": "00:00:15",
-    "long": "00:00:00",
-    "veryLong": "00:00:00"
+  "CacheQ": {
+    "veryShort": "00:00:10",
+    "short": "00:00:30",
+    "regular": "00:01:00",
+    "long": "00:05:00",
+    "veryLong": "00:30:00"
   }
 }
 ```
