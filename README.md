@@ -30,6 +30,10 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.1 Memory](#221-memory)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.2 Redis](#222-redis)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 Sql Server](#223-sql-server)
+
 
 
 
@@ -188,4 +192,31 @@ services.AddCacheQ(assembly,
             // ...
         });
     });
+```
+
+#### 2.2.2 Redis
+```csharp
+services.AddCacheQ(assembly, 
+    options =>
+    {
+        options.UseDistributedMemoryCache(memoryCacheOptions =>
+        {
+            memoryCacheOptions.SizeLimit = 1024;
+            // ...
+        });
+    });
+``` 
+    
+#### 2.2.3 Sql Server
+```csharp
+services.AddCacheQ(assembly, 
+    options =>
+    {
+        options.UseDistributedMemoryCache(memoryCacheOptions =>
+        {
+            memoryCacheOptions.SizeLimit = 1024;
+            // ...
+        });
+    });
+```
 ```
