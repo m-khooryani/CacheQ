@@ -22,9 +22,9 @@
 
 &nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
 
-[2. Features](#2-Domain)
+[2. Features](#2-features)
 
-&nbsp;&nbsp;&nbsp;[2.1 Description](#21-description)
+&nbsp;&nbsp;&nbsp;[2.1 Cache Level Configuration](#21-cache-level-configuration)
 
 ## 1. Introduction
 
@@ -145,3 +145,6 @@ services.AddCacheQ(queriesAssembly,
 services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>));
 ```
 
+## 2. Features
+
+### 2.1 Cache Level Configuration
