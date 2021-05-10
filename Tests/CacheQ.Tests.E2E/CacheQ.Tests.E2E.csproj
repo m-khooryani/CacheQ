@@ -26,6 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Persistence\CacheQ.Persistence.InMemory.DI.Extensions\CacheQ.Memory.csproj" />
+    <ProjectReference Include="..\..\Src\CacheQ\CacheQ.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="appsettings.json" />
   </ItemGroup>
 

@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\CacheQ.DependencyInjectionExtensions\CacheQ.DependencyInjectionExtensions.csproj" />
+  </ItemGroup>
+
 </Project>

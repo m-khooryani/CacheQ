@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CacheQ\CacheQ.csproj" />
+    <ProjectReference Include="..\..\..\Src\CacheQ\CacheQ.csproj" />
   </ItemGroup>
 
 </Project>
