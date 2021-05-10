@@ -180,12 +180,12 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 #### 2.2.1 Memory
 ```csharp
 services.AddCacheQ(assembly, 
-                options =>
-                {
-                    options.UseDistributedMemoryCache(options =>
-                    {
-                        options.SizeLimit = 1024;
-                        // ...
-                    });
-                });
+    options =>
+    {
+        options.UseDistributedMemoryCache(options =>
+        {
+            options.SizeLimit = 1024;
+            // ...
+        });
+    });
 ```
