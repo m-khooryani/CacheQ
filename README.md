@@ -1,6 +1,7 @@
 # CacheQ
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/persian-tools/persian-tools/blob/master/LICENSE)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=m-khooryani_CacheQ&metric=alert_status)](https://sonarcloud.io/dashboard?id=m-khooryani_CacheQ)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/m-khooryani/CacheQ/blob/master/LICENSE)
 
 ## Contents
 
