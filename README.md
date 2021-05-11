@@ -4,6 +4,8 @@
 
 [1. Introduction](#1-Introduction)
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/persian-tools/persian-tools/blob/master/LICENSE)
+
 &nbsp;&nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
 
 &nbsp;&nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
