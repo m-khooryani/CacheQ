@@ -52,7 +52,7 @@ CacheQ assists you to implement distributed cache simply!
 
 #### 1.2.1 NuGet Packages
 
-Required Packages:
+Required Packages :
 CacheQ
 
 #### 1.2.2 Query
