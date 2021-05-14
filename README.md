@@ -36,7 +36,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.2 Redis](#222-redis)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 Sql Server](#223-sql-server)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 SQL Server](#223-sql-server)
 
 &nbsp;&nbsp;&nbsp;[2.3 Prefix Key](#23-prefix-key)
 
@@ -214,7 +214,7 @@ services.AddCacheQ(assembly,
     });
 ``` 
     
-#### 2.2.3 Sql Server
+#### 2.2.3 SQL Server
 ```csharp
 services.AddCacheQ(assembly, 
     options =>
