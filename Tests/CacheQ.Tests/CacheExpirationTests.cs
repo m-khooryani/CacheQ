@@ -73,7 +73,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void GetExpiryTimeZiro_SetCacheExpirationSettingsRegular_ReturnsSameValue()
+        public void GetExpiryTimeZero_SetCacheExpirationSettingsRegular_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
