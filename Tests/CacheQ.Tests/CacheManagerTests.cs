@@ -34,9 +34,9 @@ namespace CacheQ.Tests
             cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
             cacheManager.TryGetValue(cachePolicy, 
                 new SomeQuery(), 
-                out ResponseModel a);
+                out ResponseModel response);
 
-            Assert.Null(a);
+            Assert.Null(response);
         }
 
         [Fact]
@@ -65,9 +65,9 @@ namespace CacheQ.Tests
             cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
             cacheManager.TryGetValue(cachePolicy, 
                 new SomeQuery(), 
-                out int a);
+                out int response);
 
-            Assert.Equal(5, a);
+            Assert.Equal(5, response);
         }
     }
 
