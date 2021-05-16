@@ -12,7 +12,7 @@ namespace CacheQ.Tests
     public class CacheManagerTests
     {
         [Fact]
-        public void Test1()
+        public void CacheManagerTryGetValue_SetNullValue_ReturnsNullValue()
         {
             var distributedCache = Substitute.For<IDistributedCache>();
             distributedCache.Get(Arg.Any<string>()).Returns(x => null);
@@ -40,7 +40,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test2()
+        public void CacheManagerTryGetValue_SetCacheValue_ReturnsSameValue()
         {
             var utcNow = DateTimeOffset.UtcNow;
             var cacheValueModel = 5;
