@@ -8,7 +8,7 @@ namespace CacheQ.Tests
     public class CacheExpirationTests
     {
         [Fact]
-        public void Test1()
+        public void GetExpiryTimeCacheLevelLong_SetCacheExpirationSettingsLong_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
@@ -21,7 +21,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test2()
+        public void GetExpiryTimeCacheLevelRegular_SetCacheExpirationSettingsRegular_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
@@ -34,7 +34,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test3()
+        public void GetExpiryTimeCacheLevelShort_SetCacheExpirationSettingsShort_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
@@ -47,7 +47,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test4()
+        public void GetExpiryTimeCacheLevelVeryLong_SetCacheExpirationSettingsVeryLong_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
@@ -60,7 +60,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test5()
+        public void GetExpiryTimeCacheLevelVeryShort_SetCacheExpirationSettingsVeryShort_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()
@@ -73,7 +73,7 @@ namespace CacheQ.Tests
         }
 
         [Fact]
-        public void Test6()
+        public void GetExpiryTimeZero_SetCacheExpirationSettingsRegular_ReturnsSameValue()
         {
             var expiration = TimeSpan.FromSeconds(30);
             var cacheExpirationSettings = new CacheExpirationSettings()

@@ -88,6 +88,7 @@ class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
 ```
 
 #### 1.2.4 Cache Policy
+in cache policy you can set CacheLevel 
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 {
