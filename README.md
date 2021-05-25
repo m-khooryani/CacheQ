@@ -7,25 +7,20 @@ A library for easy and convenient use of distributed caching.
 
 ## Contents
 
-[1. Introduction](#1-Introduction)
+[1. Quick Start](#1-quick-start)
 
-&nbsp;&nbsp;&nbsp;[1.1 What is CacheQ?](#11-what-is-cacheq)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.1 NuGet Packages](#11-nuget-packages)
 
-&nbsp;&nbsp;&nbsp;[1.2 Quick Start](#12-quick-start)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2 Query](#12-query)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.1 NuGet Packages](#121-nuget-packages)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.3 Query Handler](#13-query-handler)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.2 Query](#122-query)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.4 Cache Policy](#14-cache-policy)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.3 Query Handler](#123-query-handler)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.5 MediatR Caching Behavior](#15-mediatr-caching-behavior)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.4 Cache Policy](#124-cache-policy)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.6 Dependency Injection](#16-dependency-injection)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.5 MediatR Caching Behavior](#125-mediatr-caching-behavior)
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.6 Dependency Injection](#126-dependency-injection)
-
-&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#13-out-of-scope)
 
 [2. Features](#2-features)
 
@@ -45,22 +40,27 @@ A library for easy and convenient use of distributed caching.
 
 
 
-## 1. Introduction
+## 1. Quick Start
 
-### 1.1 What is CacheQ
+Here you can find a demonstration of how to use CacheQ in your code by following these simple steps in CQRS pattern using MediatR (personally prefer)
 
-CacheQ assists you to implement distributed cache simply! 
+### 1.1 NuGet Packages
 
-### 1.2 Quick Start
+&nbsp;&nbsp;&nbsp;Required Packages:
 
-Here you can find a demonstration of how to use CacheQ in your code by following these simple steps in CQRS pattern using MediatR
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[CacheQ](https://www.nuget.org/packages/CacheQ/)
 
-#### 1.2.1 NuGet Packages
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[DI Extensions](https://www.nuget.org/packages/CacheQ.DependencyInjectionExtensions/)
 
-Required Packages :
-CacheQ
+&nbsp;&nbsp;&nbsp;Provider Packages:
 
-#### 1.2.2 Query
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Memory](https://www.nuget.org/packages/CacheQ.Memory/)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Redis](https://www.nuget.org/packages/CacheQ.StackExchangeRedis/)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SQL Server](https://www.nuget.org/packages/CacheQ.SqlServer/)
+
+### 1.2 Query
 
 ```csharp
 public class EvenNumbersCountQuery : IRequest<int>
@@ -70,7 +70,7 @@ public class EvenNumbersCountQuery : IRequest<int>
 }
 ```
 
-#### 1.2.3 Query Handler
+### 1.3 Query Handler
 
 ```csharp
 class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
@@ -90,7 +90,7 @@ class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
 }
 ```
 
-#### 1.2.4 Cache Policy
+### 1.4 Cache Policy
 In this step, you can define the cache policy by setting the ExpirationLevel and Key.
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
@@ -104,7 +104,7 @@ class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 }
 ```
     
-#### 1.2.5 MediatR Caching Behavior
+### 1.5 MediatR Caching Behavior
 In this example, the use of MediatR is a must; however, it might not be necessary to use MediatR. In other words, CacheQ is not dependent on MediatR.
 ```csharp
 internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
@@ -153,7 +153,7 @@ internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequ
 }
 ```
 
-#### 1.2.6 Dependency Injection
+### 1.6 Dependency Injection
 
 ```csharp
 services.AddMediatR(queriesAssembly);
@@ -193,6 +193,8 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 ### 2.2 Cache Providers
 Based on your need, you can configure the cache provider in this step. The CacheQ providers use Microsoft.Extensions.Caching internal providers.
 #### 2.2.1 Memory
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[on NuGet](https://www.nuget.org/packages/CacheQ.Memory/)
+
 ```csharp
 services.AddCacheQ(assembly, 
     options =>
@@ -206,6 +208,8 @@ services.AddCacheQ(assembly,
 ```
 
 #### 2.2.2 Redis
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[NuGet](https://www.nuget.org/packages/CacheQ.StackExchangeRedis/)
+
 ```csharp
 services.AddCacheQ(assembly, 
     options =>
@@ -219,6 +223,8 @@ services.AddCacheQ(assembly,
 ``` 
     
 #### 2.2.3 SQL Server
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[NuGet](https://www.nuget.org/packages/CacheQ.SqlServer/)
+
 ```csharp
 services.AddCacheQ(assembly, 
     options =>
@@ -236,6 +242,7 @@ services.AddCacheQ(assembly,
 ### 2.3 Prefix Key
 Consider these Queries: **EvenNumbersCountQuery** and **OddNumbersCountQuery**. Key in CachePolicy for them would be the same for a specific range(start, end) so it's needed to distinguish cache values base on Query Type (or even Query assembly)
 it's customizable based on your need (**recommended as the default prefix key is quite large!**)
+
 this is the default implementation of PrefixKey:
 
 ```csharp
