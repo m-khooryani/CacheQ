@@ -24,7 +24,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.6 Dependency Injection](#126-dependency-injection)
 
-&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#12-out-of-scope)
+&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#13-use-cases)
 
 [2. Features](#2-features)
 
