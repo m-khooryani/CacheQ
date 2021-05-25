@@ -246,7 +246,7 @@ builder.UsePrefixKey(type =>
 ```
 
 ### 2.4 Logging 
-As you might have done it plenty of times in other programs, Logging could be simply customized 
+As you might have done it multiple times in other programs, Logging could be simply customized 
 ```json
 {
   "Logging": {
