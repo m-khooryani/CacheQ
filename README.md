@@ -3,8 +3,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=m-khooryani_CacheQ&metric=alert_status)](https://sonarcloud.io/dashboard?id=m-khooryani_CacheQ)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/m-khooryani/CacheQ/blob/master/LICENSE)
 
-## Contents
+A library for easy and convenient use of distributed caching.
 
+## Contents
 
 [1. Introduction](#1-Introduction)
 
@@ -24,7 +25,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1.2.6 Dependency Injection](#126-dependency-injection)
 
-&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#13-use-cases)
+&nbsp;&nbsp;&nbsp;[1.3 Use Cases](#13-out-of-scope)
 
 [2. Features](#2-features)
 
@@ -51,6 +52,8 @@
 CacheQ assists you to implement distributed cache simply! 
 
 ### 1.2 Quick Start
+
+Here you can find a demonstration of how to use CacheQ in your code by following these simple steps in CQRS pattern using MediatR
 
 #### 1.2.1 NuGet Packages
 
@@ -88,7 +91,7 @@ class EvenNumbersCountQueryHandler : IRequestHandler<EvenNumbersCountQuery, int>
 ```
 
 #### 1.2.4 Cache Policy
-in cache policy you can set CacheLevel 
+In this step, you can define the cache policy by setting the ExpirationLevel and Key.
 ```csharp
 class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 {
@@ -102,7 +105,7 @@ class EvenNumbersCountQueryCachePolicy : ICachePolicy<EvenNumbersCountQuery>
 ```
     
 #### 1.2.5 MediatR Caching Behavior
-
+In this example, the use of MediatR is a must; however, it might not be necessary to use MediatR. In other words, CacheQ is not dependent on MediatR.
 ```csharp
 internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> 
     where TRequest : IRequest<TResult>
@@ -188,7 +191,7 @@ services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingBehavior<,>)
 
 
 ### 2.2 Cache Providers
-
+Based on your need, you can configure the cache provider in this step. The CacheQ providers use Microsoft.Extensions.Caching internal providers.
 #### 2.2.1 Memory
 ```csharp
 services.AddCacheQ(assembly, 
@@ -231,11 +234,10 @@ services.AddCacheQ(assembly,
 ```
 
 ### 2.3 Prefix Key
-Consider these Queries: **EvenNumbersCountQuery** and **OddNumbersCountQuery**. **CachePolicy** for them would be similar so it's needed to distinguish cache values base on Query Type
+Consider these Queries: **EvenNumbersCountQuery** and **OddNumbersCountQuery**. Key in CachePolicy for them would be the same for a specific range(start, end) so it's needed to distinguish cache values base on Query Type (or even Query assembly)
+it's customizable based on your need (**recommended as the default prefix key is quite large!**)
+this is the default implementation of PrefixKey:
 
-this is the default implementation for PrefixKey:
-
-it's customizable base on your need (**recommended as default is quite large!**)
 ```csharp
 builder.UsePrefixKey(type =>
     {
@@ -244,7 +246,7 @@ builder.UsePrefixKey(type =>
 ```
 
 ### 2.4 Logging 
-Logging is customizable
+As you might have done it plenty of times in other programs, Logging could be simply customized 
 ```json
 {
   "Logging": {
