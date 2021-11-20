@@ -41,7 +41,7 @@ namespace Microsoft.Extensions.DependencyInjection
 			Assembly assembly,
 			Action<ICacheQConfigurator> configure = null)
         {
-            var lifetime = ServiceLifetime.Singleton;
+            var lifetime = ServiceLifetime.Transient;
             FindCachePoliciesInAssembly(assembly.GetTypes())
                 .ToList()
                 .ForEach(scanResult => services.Register(scanResult, lifetime));
