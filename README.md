@@ -35,6 +35,8 @@ A library for easy and convenient use of distributed caching.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.3 SQL Server](#223-sql-server)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[2.2.4 NCache](#224-ncache)
+
 &nbsp;&nbsp;&nbsp;[2.3 Prefix Key](#23-prefix-key)
 
 &nbsp;&nbsp;&nbsp;[2.4 Logging](#24-logging)
@@ -60,6 +62,8 @@ Here you can find a demonstration of how to use CacheQ in your code by following
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Redis](https://www.nuget.org/packages/CacheQ.StackExchangeRedis/)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[SQL Server](https://www.nuget.org/packages/CacheQ.SqlServer/)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[NCache](https://www.nuget.org/packages/CacheQ.NCache/)
 
 ### 1.2 Query
 
@@ -236,6 +240,22 @@ services.AddCacheQ(assembly,
             sqlOptions.SchemaName = "";
             sqlOptions.TableName = "";
             // ...
+        });
+    });
+```
+    
+#### 2.2.4 NCache
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[NuGet](https://www.nuget.org/packages/CacheQ.NCache/)
+
+```csharp
+services.AddCacheQ(assembly, 
+    options =>
+    {
+        options.UseNCacheDistributedCache(nCacheOptions =>
+        {
+            nCacheOptions.CacheName = "democache";
+            nCacheOptions.EnableLogs = true;
+            nCacheOptions.ExceptionsEnabled = true;
         });
     });
 ```
