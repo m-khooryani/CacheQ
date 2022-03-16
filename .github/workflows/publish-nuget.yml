@@ -19,7 +19,4 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Publish 
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: Src/CacheQ/CacheQ.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      run: nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate -NoSymbols
