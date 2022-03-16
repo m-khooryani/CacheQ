@@ -6,7 +6,7 @@ namespace CacheQ.NCache;
 
 public static class ServiceCollectionExtensions
 {
-    public static ICacheQConfigurator UseStackExchangeRedisCache(
+    public static ICacheQConfigurator UseNCacheDistributedCache(
         this ICacheQConfigurator cacheQConfigurator,
         Action<NCacheConfiguration> configure)
     {
