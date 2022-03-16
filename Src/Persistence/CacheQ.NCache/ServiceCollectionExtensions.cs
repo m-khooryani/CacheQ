@@ -1,8 +1,7 @@
 ﻿using Alachisoft.NCache.Caching.Distributed;
 using Alachisoft.NCache.Caching.Distributed.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace CacheQ.NCache;
+namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
