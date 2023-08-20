@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Microsoft.Extensions.DependencyInjection
-{
+namespace Microsoft.Extensions.DependencyInjection;
+
 	[ExcludeFromCodeCoverage]
 	internal class AssemblyScanResult
 	{
@@ -17,4 +17,3 @@ namespace Microsoft.Extensions.DependencyInjection
 			CachePolicyType = cachePolicyType;
 		}
 	}
-}

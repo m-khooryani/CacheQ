@@ -2,12 +2,11 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Internal;
 
-namespace CacheQ.Tests.E2E
+namespace CacheQ.Tests.E2E;
+
+[ExcludeFromCodeCoverage]
+class CustomClock : ISystemClock
 {
-    [ExcludeFromCodeCoverage]
-    class CustomClock : ISystemClock
-    {
-        public static DateTimeOffset DateTimeOffset = DateTimeOffset.UtcNow;
-        public DateTimeOffset UtcNow => DateTimeOffset;
-    }
+    public static DateTimeOffset DateTimeOffset = DateTimeOffset.UtcNow;
+    public DateTimeOffset UtcNow => DateTimeOffset;
 }

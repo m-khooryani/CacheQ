@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>1.0.6</Version>
+		<Version>1.0.7</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="NCache.Microsoft.Extensions.Caching.Professional" Version="5.2.1" />
+		<PackageReference Include="NCache.Microsoft.Extensions.Caching.Professional" Version="5.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -17,6 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="client.ncconf">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="config.ncconf">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

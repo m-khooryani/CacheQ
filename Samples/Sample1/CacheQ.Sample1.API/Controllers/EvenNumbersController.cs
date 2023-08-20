@@ -3,29 +3,28 @@ using CacheQ.Sample1.Application.EvenNumbersCount;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CacheQ.Sample1.API.Controllers
+namespace CacheQ.Sample1.API.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class EvenNumbersController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class EvenNumbersController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public EvenNumbersController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public EvenNumbersController(IMediator mediator)
+    [HttpGet]
+    public Task<int> Get(
+        int startRange = 1,
+        int endRange = 1000)
+    {
+        return _mediator.Send(new EvenNumbersCountQuery()
         {
-            _mediator = mediator;
-        }
-
-        [HttpGet]
-        public Task<int> Get(
-            int startRange = 1,
-            int endRange = 1000)
-        {
-            return _mediator.Send(new EvenNumbersCountQuery()
-            {
-                StartRange = startRange,
-                EndRange = endRange
-            });
-        }
+            StartRange = startRange,
+            EndRange = endRange
+        });
     }
 }

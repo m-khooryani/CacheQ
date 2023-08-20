@@ -2,20 +2,19 @@
 using System.Text.Json;
 using Xunit;
 
-namespace CacheQ.Tests
+namespace CacheQ.Tests;
+
+[ExcludeFromCodeCoverage]
+public class CacheValueModelTests
 {
-    [ExcludeFromCodeCoverage]
-    public class CacheValueModelTests
+    [Fact]
+    public void Test1()
     {
-        [Fact]
-        public void Test1()
-        {
-            var cacheValueModel = 45;
+        var cacheValueModel = 45;
 
-            var json = JsonSerializer.Serialize(cacheValueModel);
-            var deserialized = JsonSerializer.Deserialize<int>(json);
+        var json = JsonSerializer.Serialize(cacheValueModel);
+        var deserialized = JsonSerializer.Deserialize<int>(json);
 
-            Assert.Equal(cacheValueModel, deserialized);
-        }
+        Assert.Equal(cacheValueModel, deserialized);
     }
 }
