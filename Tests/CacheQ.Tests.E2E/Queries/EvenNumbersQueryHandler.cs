@@ -8,11 +8,11 @@ namespace CacheQ.Tests.E2E.Queries;
 [ExcludeFromCodeCoverage]
 class EvenNumbersQueryHandler : IRequestHandler<EvenNumbersQuery, Dto>
 {
-    public static int Calculated = 0;
+    public static int ExecutedCount = 0;
 
     public Task<Dto> Handle(EvenNumbersQuery request, CancellationToken cancellationToken)
     {
-        Calculated++;
+        ExecutedCount++;
         int count = 0;
         for (int i = request.StartRange; i < request.EndRange; i++)
         {

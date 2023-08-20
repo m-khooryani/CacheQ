@@ -46,7 +46,7 @@ public class TestFixture
 
     internal void Reset()
     {
-        EvenNumbersQueryHandler.Calculated = 0;
+        EvenNumbersQueryHandler.ExecutedCount = 0;
         CustomClock.DateTimeOffset = CustomClock.DateTimeOffset.AddDays(1);
     }
 
