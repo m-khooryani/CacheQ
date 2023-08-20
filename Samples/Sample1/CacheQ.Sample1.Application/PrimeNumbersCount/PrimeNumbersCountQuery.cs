@@ -1,10 +1,9 @@
 ﻿using MediatR;
 
-namespace CacheQ.Sample1.Application.PrimeNumbersCount
+namespace CacheQ.Sample1.Application.PrimeNumbersCount;
+
+public class PrimeNumbersCountQuery : IRequest<int>
 {
-    public class PrimeNumbersCountQuery : IRequest<int>
-    {
-        public int StartRange { get; set; }
-        public int EndRange { get; set; }
-    }
+    public int StartRange { get; set; }
+    public int EndRange { get; set; }
 }

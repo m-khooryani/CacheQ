@@ -1,8 +1,7 @@
-﻿namespace CacheQ
+﻿namespace CacheQ;
+
+public interface ICachePolicy<T>
 {
-    public interface ICachePolicy<T>
-    {
-        string Key(T query);
-        CacheLevel ExpirationLevel { get; }
-    }
+    string Key(T query);
+    CacheLevel ExpirationLevel { get; }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace CacheQ
+namespace CacheQ;
+
+public class PrefixKeyResolver
 {
-    public class PrefixKeyResolver
-    {
-        public Func<Type, string> Func { get; set; }
-    }
+    public Func<Type, string> Func { get; set; }
 }

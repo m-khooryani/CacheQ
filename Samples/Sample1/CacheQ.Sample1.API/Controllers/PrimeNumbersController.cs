@@ -3,29 +3,28 @@ using CacheQ.Sample1.Application.PrimeNumbersCount;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CacheQ.Sample1.API.Controllers
+namespace CacheQ.Sample1.API.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class PrimeNumbersController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class PrimeNumbersController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public PrimeNumbersController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public PrimeNumbersController(IMediator mediator)
+    [HttpGet]
+    public Task<int> Get(
+        int startRange = 1, 
+        int endRange = 1000)
+    {
+        return _mediator.Send(new PrimeNumbersCountQuery()
         {
-            _mediator = mediator;
-        }
-
-        [HttpGet]
-        public Task<int> Get(
-            int startRange = 1, 
-            int endRange = 1000)
-        {
-            return _mediator.Send(new PrimeNumbersCountQuery()
-            {
-                StartRange = startRange,
-                EndRange = endRange
-            });
-        }
+            StartRange = startRange,
+            EndRange = endRange
+        });
     }
 }

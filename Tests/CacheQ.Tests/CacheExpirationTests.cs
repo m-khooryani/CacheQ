@@ -2,87 +2,86 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
-namespace CacheQ.Tests
+namespace CacheQ.Tests;
+
+[ExcludeFromCodeCoverage]
+public class CacheExpirationTests
 {
-    [ExcludeFromCodeCoverage]
-    public class CacheExpirationTests
+    [Fact]
+    public void GetExpiryTimeCacheLevelLong_SetCacheExpirationSettingsLong_ReturnsSameValue()
     {
-        [Fact]
-        public void GetExpiryTimeCacheLevelLong_SetCacheExpirationSettingsLong_ReturnsSameValue()
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                Long = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            Long = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Long));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Long));
+    }
 
-        [Fact]
-        public void GetExpiryTimeCacheLevelRegular_SetCacheExpirationSettingsRegular_ReturnsSameValue()
+    [Fact]
+    public void GetExpiryTimeCacheLevelRegular_SetCacheExpirationSettingsRegular_ReturnsSameValue()
+    {
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                Regular = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            Regular = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Regular));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Regular));
+    }
 
-        [Fact]
-        public void GetExpiryTimeCacheLevelShort_SetCacheExpirationSettingsShort_ReturnsSameValue()
+    [Fact]
+    public void GetExpiryTimeCacheLevelShort_SetCacheExpirationSettingsShort_ReturnsSameValue()
+    {
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                Short = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            Short = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Short));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.Short));
+    }
 
-        [Fact]
-        public void GetExpiryTimeCacheLevelVeryLong_SetCacheExpirationSettingsVeryLong_ReturnsSameValue()
+    [Fact]
+    public void GetExpiryTimeCacheLevelVeryLong_SetCacheExpirationSettingsVeryLong_ReturnsSameValue()
+    {
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                VeryLong = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            VeryLong = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.VeryLong));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.VeryLong));
+    }
 
-        [Fact]
-        public void GetExpiryTimeCacheLevelVeryShort_SetCacheExpirationSettingsVeryShort_ReturnsSameValue()
+    [Fact]
+    public void GetExpiryTimeCacheLevelVeryShort_SetCacheExpirationSettingsVeryShort_ReturnsSameValue()
+    {
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                VeryShort = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            VeryShort = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.VeryShort));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(CacheLevel.VeryShort));
+    }
 
-        [Fact]
-        public void GetExpiryTimeZero_SetCacheExpirationSettingsRegular_ReturnsSameValue()
+    [Fact]
+    public void GetExpiryTimeZero_SetCacheExpirationSettingsRegular_ReturnsSameValue()
+    {
+        var expiration = TimeSpan.FromSeconds(30);
+        var cacheExpirationSettings = new CacheExpirationSettings()
         {
-            var expiration = TimeSpan.FromSeconds(30);
-            var cacheExpirationSettings = new CacheExpirationSettings()
-            {
-                Regular = expiration,
-            };
-            var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
+            Regular = expiration,
+        };
+        var cacheExpirationResolver = new CacheExpirationResolver(cacheExpirationSettings);
 
-            Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(0));
-        }
+        Assert.Equal(expiration, cacheExpirationResolver.GetExpiryTime(0));
     }
 }

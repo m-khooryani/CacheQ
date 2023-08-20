@@ -6,78 +6,77 @@ using Microsoft.Extensions.Caching.Distributed;
 using NSubstitute;
 using Xunit;
 
-namespace CacheQ.Tests
+namespace CacheQ.Tests;
+
+[ExcludeFromCodeCoverage]
+public class CacheManagerTests
 {
-    [ExcludeFromCodeCoverage]
-    public class CacheManagerTests
+    [Fact]
+    public void CacheManagerTryGetValue_SetNullValue_ReturnsNullValue()
     {
-        [Fact]
-        public void CacheManagerTryGetValue_SetNullValue_ReturnsNullValue()
+        var distributedCache = Substitute.For<IDistributedCache>();
+        distributedCache.Get(Arg.Any<string>()).Returns(x => null);
+
+        var prefixKeyResolver = new PrefixKeyResolver()
         {
-            var distributedCache = Substitute.For<IDistributedCache>();
-            distributedCache.Get(Arg.Any<string>()).Returns(x => null);
-
-            var prefixKeyResolver = new PrefixKeyResolver()
+            Func = x =>
             {
-                Func = x =>
-                {
-                    return x.Name;
-                }
-            };
+                return x.Name;
+            }
+        };
 
-            var cacheManager = new CacheManagerBuilder()
-                .SetDistributedCache(distributedCache)
-                .SetPrefixKeyResolver(prefixKeyResolver)
-                .Build();
+        var cacheManager = new CacheManagerBuilder()
+            .SetDistributedCache(distributedCache)
+            .SetPrefixKeyResolver(prefixKeyResolver)
+            .Build();
 
-            var cachePolicy = Substitute.For<ICachePolicy<SomeQuery>>();
-            cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
-            cacheManager.TryGetValue(cachePolicy, 
-                new SomeQuery(), 
-                out ResponseModel response);
+        var cachePolicy = Substitute.For<ICachePolicy<SomeQuery>>();
+        cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
+        cacheManager.TryGetValue(cachePolicy, 
+            new SomeQuery(), 
+            out ResponseModel response);
 
-            Assert.Null(response);
-        }
+        Assert.Null(response);
+    }
 
-        [Fact]
-        public void CacheManagerTryGetValue_SetCacheValue_ReturnsSameValue()
+    [Fact]
+    public void CacheManagerTryGetValue_SetCacheValue_ReturnsSameValue()
+    {
+        var utcNow = DateTimeOffset.UtcNow;
+        var cacheValueModel = 5;
+        var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
+        var distributedCache = Substitute.For<IDistributedCache>();
+        distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);
+
+        var prefixKeyResolver = new PrefixKeyResolver()
         {
-            var utcNow = DateTimeOffset.UtcNow;
-            var cacheValueModel = 5;
-            var bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(cacheValueModel));
-            var distributedCache = Substitute.For<IDistributedCache>();
-            distributedCache.Get(Arg.Any<string>()).Returns(x => bytes);
-
-            var prefixKeyResolver = new PrefixKeyResolver()
+            Func = x =>
             {
-                Func = x =>
-                {
-                    return x.Name;
-                }
-            };
+                return x.Name;
+            }
+        };
 
-            var cacheManager = new CacheManagerBuilder()
-                .SetDistributedCache(distributedCache)
-                .SetPrefixKeyResolver(prefixKeyResolver)
-                .Build();
+        var cacheManager = new CacheManagerBuilder()
+            .SetDistributedCache(distributedCache)
+            .SetPrefixKeyResolver(prefixKeyResolver)
+            .Build();
 
-            var cachePolicy = Substitute.For<ICachePolicy<SomeQuery>>();
-            cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
-            cacheManager.TryGetValue(cachePolicy, 
-                new SomeQuery(), 
-                out int response);
+        var cachePolicy = Substitute.For<ICachePolicy<SomeQuery>>();
+        cachePolicy.Key(Arg.Any<SomeQuery>()).Returns("someKey");
+        cacheManager.TryGetValue(cachePolicy, 
+            new SomeQuery(), 
+            out int response);
 
-            Assert.Equal(5, response);
-        }
+        Assert.Equal(5, response);
     }
+}
 
-    public class SomeQuery
-    {
+public class SomeQuery
+{
 
-    }
+}
 
-    public class ResponseModel
-    {
+public class ResponseModel
+{
 
-    }
 }

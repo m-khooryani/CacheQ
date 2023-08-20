@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace CacheQ
+namespace CacheQ;
+
+public interface ICacheExpirationResolver
 {
-    public interface ICacheExpirationResolver
-    {
-        TimeSpan GetExpiryTime(CacheLevel cacheLevel);
-    }
+    TimeSpan GetExpiryTime(CacheLevel cacheLevel);
 }
