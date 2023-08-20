@@ -4,7 +4,6 @@ using CacheQ.Tests.E2E.Queries;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
 namespace CacheQ.Tests.E2E;
 
