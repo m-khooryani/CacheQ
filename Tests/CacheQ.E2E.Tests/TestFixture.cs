@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using CacheQ.Tests.E2E.Queries;
 using MediatR;
 using Microsoft.Extensions.Configuration;
