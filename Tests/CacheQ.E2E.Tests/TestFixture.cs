@@ -22,7 +22,7 @@ public class TestFixture
 
         serviceCollection.AddSingleton(provider => configuration);
         serviceCollection.AddLogging();
-        serviceCollection.AddMediatR(typeof(EvenNumbersQuery).Assembly);
+        serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<EvenNumbersQuery>());
         serviceCollection.AddCacheQ(typeof(EvenNumbersQuery).Assembly,
             options =>
             {

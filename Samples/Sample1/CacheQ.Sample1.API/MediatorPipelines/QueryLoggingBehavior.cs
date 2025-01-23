@@ -16,7 +16,7 @@ internal class QueryLoggingBehavior<T, TResult> : IPipelineBehavior<T, TResult> 
         _logger = logger;
     }
 
-    public async Task<TResult> Handle(T request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
+    public async Task<TResult> Handle(T request, RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken)
     {
         _logger.LogInformation($"{request.GetType().Name} is processing: {Environment.NewLine}{JsonConvert.SerializeObject(request, Formatting.Indented)}");
         try

@@ -28,7 +28,7 @@ public class Startup
             builder.AddConsole();
         });
         services.AddControllers(); 
-        services.AddMediatR(typeof(PrimeNumbersCountQuery).Assembly);
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<PrimeNumbersCountQuery>());
 
 
         services.AddCacheQ(typeof(PrimeNumbersCountQuery).Assembly, 

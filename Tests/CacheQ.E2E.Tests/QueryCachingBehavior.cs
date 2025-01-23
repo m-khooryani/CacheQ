@@ -18,7 +18,7 @@ internal class QueryCachingBehavior<TRequest, TResult> : IPipelineBehavior<TRequ
         _cacheManager = cacheManager;
     }
 
-    public async Task<TResult> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResult> next)
+    public async Task<TResult> Handle(TRequest request, RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken)
     {
         if (_cachePolicy is null)
         {
